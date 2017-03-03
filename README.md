@@ -13,3 +13,7 @@ Used DecisionTree in another repository of mine.
 
 #Updates
 1. Typo fixes
+
+
+#TODO
+1. Extend and modify this class to support MapReduce.
