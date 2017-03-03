@@ -5,6 +5,10 @@ import java.util.*;
 
 /**
  * Created by d_d on 3/1/17.
+ *
+ * This class implements the Random Forest algorithm by Breiman(2001).
+ *
+ * TODO: Extend and modify this class to support MapReduce.
  */
 public class RandomForest {
     // Attributes' type(categorical/continuous) specification.
@@ -16,16 +20,22 @@ public class RandomForest {
     // Store attributes' name if the data has a header.
     public ArrayList<String> attributesName;
 
+    // A data structure to store all the decision trees.
     private ArrayList<DecisionTree> randomForest;
 
+    // Training Data.
     private Entries trainData;
 
+    // Testing Data.
     private Entries testData;
 
+    // The useful choosen attributes.
     private ArrayList<Boolean> chosenAttributes;
 
+    // The random factor for training subset selection.
     public double trainSubsetFraction;
 
+    // Indicates the Random subspace in Random Forest.
     public int attrSubspaceNum;
 
 
@@ -65,6 +75,7 @@ public class RandomForest {
 
             this.attributesName.addAll(Arrays.asList(line.split(this.delimiter)));
 
+            // Usually specify the random subspace as the sqrt of the attributes number.
             this.attrSubspaceNum = (int) Math.sqrt(this.attributesName.size());
 
         }
@@ -105,6 +116,19 @@ public class RandomForest {
     }
 
     /**
+     * A public method for user to load data for DecisionTree class.
+     * NOTICE: Training data and test data need to be loaded seperately, label is as default the last column
+     *         in the dataset.
+     * @param training  Indicate if the file is training data.
+     * @param filePath  Indicate the filepath.
+     * @throws IOException In case of IOException.
+     */
+    public void loadData(boolean training, String filePath, boolean header) throws IOException {
+        List<String[]> entries = readCSV(filePath, header);
+        loadDataUtil(training, entries);
+    }
+
+    /**
      * An alternate public method for user to load entries data instead of from file.
      * @param training Indicate if the file is training data.
      * @param entries The entries needs to be filled in.
@@ -115,19 +139,31 @@ public class RandomForest {
     }
 
 
-    public RandomForest(ArrayList<Boolean> typeSpecification, ArrayList<Boolean> choosenAttributes, String delimiter) {
+    /**
+     * Constructor for random forest.
+     * @param typeSpecification Attributes' type(categorical/continuous) specification.
+     * @param chosenAttributes A boolean array indicates the attributes that user choose to use/ignore.
+     * @param delimiter Data CSV file delimiter.
+     */
+    public RandomForest(ArrayList<Boolean> typeSpecification, ArrayList<Boolean> chosenAttributes, String delimiter) {
         this.randomForest = new ArrayList<>();
         this.trainData = new Entries();
         this.testData = new Entries();
         this.typeSpecification = typeSpecification;
-        this.chosenAttributes = choosenAttributes;
+        this.chosenAttributes = chosenAttributes;
         this.delimiter = delimiter;
+
+        // The random factor for training subset selection is usually 2/3 of the rows.
         this.trainSubsetFraction = 2.0 / 3.0;
 
         this.attributesName = null;
     }
 
 
+    /**
+     * Initialize all the trees.
+     * @param treesNumber Trees to grow.
+     */
     public void initialize(int treesNumber) {
         for (int i = 0; i < treesNumber; i ++) {
             DecisionTree newDecisionTree = new DecisionTree(this.typeSpecification, this.chosenAttributes, this.delimiter, true);
@@ -135,6 +171,9 @@ public class RandomForest {
         }
     }
 
+    /**
+     * Funtion to start growing trees in forest.
+     */
     public void startTraining() {
         int trainSubsetSize = (int) (this.trainData.entries.size() * this.trainSubsetFraction);
 
@@ -169,6 +208,10 @@ public class RandomForest {
     }
 
 
+    /**
+     * Funtion to start testing the test dataset.
+     * @return The accuracy.
+     */
     public double startTesting() {
         double correct = 0;
         double all = 0;
@@ -176,9 +219,11 @@ public class RandomForest {
 
             Map<String, Integer> predictedLabels = new HashMap<>();
 
+            // For each test record, get predicted labels from all trees.
             for (DecisionTree dt : this.randomForest) {
                 String predictedLabel = dt.startTesting(e);
                 predictedLabels = Counter(predictedLabels, predictedLabel);
+
                 System.out.print(predictedLabel + "\t");
             }
 

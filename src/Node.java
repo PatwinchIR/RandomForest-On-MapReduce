@@ -10,8 +10,10 @@ import java.util.*;
  * it also stores next best attribute to split, and the splitting boundary.
  */
 class Node {
+    // For RandomForest use indicator.
     boolean inRandomForest;
 
+    // Indicates the Random subspace in Random Forest.
     int attrSubspaceNum;
 
     // The useful choosen attributes.
@@ -125,8 +127,10 @@ class Node {
      */
     private void findBestSplitAttr(Entries examples, ArrayList<Integer> attributes) {
 
+        // For later random forest attribute subspace selection.
         ArrayList<Integer> selectedAttributes = new ArrayList<>();
 
+        // Random attributes subspace selection.
         if (this.inRandomForest) {
             if (attributes.size() > this.attrSubspaceNum) {
 
@@ -143,7 +147,7 @@ class Node {
 
                     selectedAttributes.add(attributes.get(index));
                 }
-            } else {
+            } else { // If the attributes left are less than specified attributes subspace number, than no selection is needed further.
                 selectedAttributes.addAll(attributes);
             }
         } else {
