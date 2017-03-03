@@ -10,6 +10,13 @@ import java.util.*;
  * it also stores next best attribute to split, and the splitting boundary.
  */
 class Node {
+    boolean inRandomForest;
+
+    int attrSubspaceNum;
+
+    // The useful choosen attributes.
+    List<Boolean> chosenAttributes;
+
     // Attributes' type(categorical/continuous) specification.
     List<Boolean> typeSpecification;
 
@@ -118,11 +125,39 @@ class Node {
      */
     private void findBestSplitAttr(Entries examples, ArrayList<Integer> attributes) {
 
+        ArrayList<Integer> selectedAttributes = new ArrayList<>();
+
+        if (this.inRandomForest) {
+            if (attributes.size() > this.attrSubspaceNum) {
+
+                ArrayList<Integer> attrIndexes = new ArrayList<>();
+
+                for (int i = 0; i < this.attrSubspaceNum; i ++) {
+                    Integer index = (int) (Math.random() * (attributes.size()));
+
+                    while (attrIndexes.contains(index) || !chosenAttributes.get(attributes.get(index))) {
+                        index = (int) (Math.random() * (attributes.size()));
+                    }
+
+                    attrIndexes.add(index);
+
+                    selectedAttributes.add(attributes.get(index));
+                }
+            } else {
+                selectedAttributes.addAll(attributes);
+            }
+        } else {
+            selectedAttributes.addAll(attributes);
+        }
+
         // minEntropy over all attributes and all candidate boundaries.
         double minEntropy = Double.MAX_VALUE;
 
         // Traverse all remaining attributes.
-        for (Integer attrIdx: attributes) {
+        for (Integer attrIdx: selectedAttributes) {
+            if (!this.chosenAttributes.get(attrIdx)) {
+                continue;
+            }
 
             if (!this.typeSpecification.get(attrIdx)) {     // Continuous
                 // Sort examples according to current attributes.
@@ -208,11 +243,14 @@ class Node {
      * @param examples The remaining examples after its parent's splitting.
      * @param attributes The remaining attributes after its parent's splitting.
      */
-    Node(Entries examples, ArrayList<Integer> attributes, ArrayList<Boolean> typeSpecification) {
+    Node(Entries examples, ArrayList<Integer> attributes, ArrayList<Boolean> typeSpecification, ArrayList<Boolean> choosenAttributes, boolean inRandomForest, int attrSubspaceNum) {
         this.left = null;
         this.right = null;
         this.label = null;
         this.typeSpecification = typeSpecification;
+        this.chosenAttributes = choosenAttributes;
+        this.inRandomForest = inRandomForest;
+        this.attrSubspaceNum = attrSubspaceNum;
 
         processLabels(examples);
 
@@ -229,6 +267,7 @@ class Node {
         this.right = null;
         this.label = null;
         this.typeSpecification = new ArrayList<>();
+        this.chosenAttributes = new ArrayList<>();
         this.entropy = 0;
         this.labelsCount = new HashMap<>();
         this.isConsistent = true;

@@ -8,10 +8,13 @@ public class Main {
     public static void main(String[] args) throws IOException {
 	// write your code here
         ArrayList<Boolean> typeSpecification = new ArrayList<>(Arrays.asList(true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false));
+        ArrayList<Boolean> chosenAttributes = new ArrayList<>(Arrays.asList(false, true, false, true, true, true, true, true, true, true, true,true, true, true, true, true, true, true));
 
-        DecisionTree dt = new DecisionTree(typeSpecification, ";", false);
+        RandomForest rf = new RandomForest(typeSpecification, chosenAttributes, ";");
 
-        List<String[]> entries = dt.readCSV("/Users/d_d/Desktop/BigDataSystemsinPractice/Assignments/HW5/smallerData.csv", true);
+        rf.initialize(5);
+
+        List<String[]> entries = rf.readCSV("/Users/d_d/Desktop/BigDataSystemsinPractice/Assignments/HW5/smallerData.csv", true);
 
         int trainSize = (int) (entries.size() * 0.8);
 
@@ -38,17 +41,22 @@ public class Main {
 
         entries = null;
 
-        dt.loadData(true, trainEntries);
+        rf.loadData(true, trainEntries);
 
-        dt.loadData(false, testEntries);
+        rf.loadData(false, testEntries);
 
-        dt.startTrain();
+        rf.startTraining();
 
-        dt.preorderTraversePrint(dt.start, dt.root, -1, false, true);
+        rf.startTesting();
 
-        dt.startTest();
-
-        dt.confusionMatrixPrint();
+//
+//        dt.startTraining();
+//
+//        dt.preorderTraversePrint(dt.start, dt.root, -1, false, true);
+//
+//        dt.startTesting();
+//
+//        dt.confusionMatrixPrint();
 
     }
 }
