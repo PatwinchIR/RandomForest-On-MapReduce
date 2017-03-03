@@ -16,4 +16,4 @@ Used DecisionTree in another repository of mine.
 
 
 #TODO
-1. Extend and modify this class to support MapReduce.
+1. Extend and modify this class to support MapReduce(Hadoop).
