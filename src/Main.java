@@ -49,14 +49,5 @@ public class Main {
 
         rf.startTesting();
 
-//
-//        dt.startTraining();
-//
-//        dt.preorderTraversePrint(dt.start, dt.root, -1, false, true);
-//
-//        dt.startTesting();
-//
-//        dt.confusionMatrixPrint();
-
     }
 }
