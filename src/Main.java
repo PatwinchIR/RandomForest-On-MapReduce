@@ -6,7 +6,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-	// write your code here
+
         ArrayList<Boolean> typeSpecification = new ArrayList<>(Arrays.asList(true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false));
         ArrayList<Boolean> chosenAttributes = new ArrayList<>(Arrays.asList(false, true, false, true, true, true, true, true, true, true, true,true, true, true, true, true, true, true));
 
