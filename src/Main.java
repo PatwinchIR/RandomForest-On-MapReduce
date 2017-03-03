@@ -14,7 +14,7 @@ public class Main {
 
         rf.initialize(5);
 
-        List<String[]> entries = rf.readCSV("/Users/d_d/Desktop/BigDataSystemsinPractice/Assignments/HW5/smallerData.csv", true);
+        List<String[]> entries = rf.readCSV("smallerData.csv", true);
 
         int trainSize = (int) (entries.size() * 0.8);
 
