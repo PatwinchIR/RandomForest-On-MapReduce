@@ -181,8 +181,8 @@ public class RFMapReduce {
 
             dt.startTraining();
 
-            // Uncomment this line to print tree structure.
-            //dt.preorderTraversePrint(dt.start, dt.root, -1, false, true);
+            // Comment this line to hide tree structure.
+            dt.preorderTraversePrint(dt.start, dt.root, -1, false, true);
 
             for (Entry e: dt.testData.entries) {
                 context.write(new Text(e.toString(delimiter)), new Text(dt.startTesting(e)));
