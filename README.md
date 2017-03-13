@@ -23,7 +23,7 @@ For example:
 2. Build n InputSplits for n trees, n is a command line argument.                                            
    1. Use customized InputFormat.getSplits() to create n InputSplits. So the framework would call n mappers.
    2. Use customized RecordReader.nextKeyValue() to create 2/3 subset of the training data with replacement.
-   3. When Mapper.run() is calling nextKeyValue(), this method directly return 2/3 of data.                
+   3. When Mapper.run() is calling nextKeyValue(), this method directly return 2/3 of the data.                
 3. Each InputSplit would assign to a mappper.                                                                
 4. After receiving data, each mapper start to build tree and produce prediction for test dataset.            
    (Each mapper is only going to receive one key/value pair from RecordReader.)                              
