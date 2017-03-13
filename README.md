@@ -4,13 +4,14 @@ A Random Forest MapReduce implementation.
 Used DecisionTree in another repository of mine.
 
 #Instructions
-command line parameters:
+####command line parameters
 
 `[input training data folder] [output folder] [path to test data] [number of trees]`
 
 For example:
-`input output /path/to/test.csv 10`
+`input output /path/to/test.csv 5`
 
+####Steps:
 1. Specifying type for each attributes is required.
 2. Specifying selected splitting attributes is required.
 3. After creating the instance of a `RFMapReduce`, calling `setTrainSubsetFraction()` is required, usually "0.67".

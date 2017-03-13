@@ -56,6 +56,7 @@ class CellData {
         return (((Double) cellData1.value) + ((Double) cellData2.value)) / 2.0;
     }
 
+    // For Mapper output.
     public String toString() {
         return value.toString();
     }

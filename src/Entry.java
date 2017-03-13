@@ -19,6 +19,7 @@ class Entry {
         this.label = null;
     }
 
+    // For Mapper output.
     public String toString(String delimiter) {
         String returnedString = "";
         for (CellData cd: attributes) {

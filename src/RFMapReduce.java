@@ -36,7 +36,6 @@ import java.util.*;
  * | 6. Reducer counts the majority label according to key.
  * | 7. Write results to output file.
  * ===============================================================================================================
- *
  * TODO: Support more results analysis, ex: Confusion Matrix, etc.
  */
 public class RFMapReduce {

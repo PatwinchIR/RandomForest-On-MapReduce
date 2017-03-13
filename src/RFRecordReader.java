@@ -123,6 +123,10 @@ public class RFRecordReader extends RecordReader<IntWritable, Text> {
         returned = false;
     }
 
+    /**
+     * Not used.
+     * @throws IOException In case of IOException.
+     */
     @Override
     public void close() throws IOException {
 

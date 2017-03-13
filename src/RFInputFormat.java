@@ -22,7 +22,6 @@ import java.util.List;
  * controlled.
  *
  * Actual data reading is done in RFRecordReader.
- *
  */
 public class RFInputFormat extends FileInputFormat<IntWritable, Text> {
     /**

@@ -3,6 +3,7 @@ import java.util.Arrays;
 
 /**
  * Created by d_d on 3/13/17.
+ * Example running program.
  */
 public class Main {
 
