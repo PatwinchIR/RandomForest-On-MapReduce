@@ -1,4 +1,4 @@
-# RandomForest
+# Random Forest on MapReduce
 A Random Forest MapReduce implementation.
 
 Used DecisionTree in another repository of mine.
