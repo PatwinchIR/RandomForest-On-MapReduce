@@ -30,3 +30,6 @@ For example:
 5. Pass the test data and label as key and value to reducer.                                                 
 6. Reducer counts the majority label according to key.                                                       
 7. Write results to output file.                                                                             
+
+#Note:
+Use `process.py` to process the "smallerData.csv" file to get 80/20 train/test data(approximately label balanced).
