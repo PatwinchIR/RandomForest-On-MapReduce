@@ -18,4 +18,13 @@ class Entry {
         this.attributes = new ArrayList<>();
         this.label = null;
     }
+
+    public String toString(String delimiter) {
+        String returnedString = "";
+        for (CellData cd: attributes) {
+            returnedString += (cd.toString() + delimiter);
+        }
+        returnedString += label;
+        return returnedString;
+    }
 }
