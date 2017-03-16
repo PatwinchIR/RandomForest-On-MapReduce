@@ -3,22 +3,22 @@ A Random Forest MapReduce implementation.
 
 Used DecisionTree in another repository of mine.
 
-#Instructions
-####command line parameters
+# Instructions
+#### command line parameters
 
 `[input training data folder] [output folder] [path to test data] [number of trees]`
 
 For example:
 `input output /path/to/test.csv 5`
 
-####Steps:
+#### Steps:
 1. Specifying type for each attributes is required.
 2. Specifying selected splitting attributes is required.
 3. After creating the instance of a `RFMapReduce`, calling `setTrainSubsetFraction()` is required, usually "0.67".
 4. Call `RFDriver()` to execute.
 5. (Optional) Calculate accuracy.
 
-#Structures
+# Structures
 1. Read train data from a CSV file.                                                                          
 2. Build n InputSplits for n trees, n is a command line argument.                                            
    1. Use customized InputFormat.getSplits() to create n InputSplits. So the framework would call n mappers.
@@ -31,5 +31,5 @@ For example:
 6. Reducer counts the majority label according to key.                                                       
 7. Write results to output file.                                                                             
 
-#Notes
+# Notes
 1. Use `process.py` to process the "smallerData.csv" file to get 80/20 train/test data(approximately label balanced).
