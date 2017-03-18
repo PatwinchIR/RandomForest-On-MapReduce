@@ -33,3 +33,4 @@ For example:
 
 # Notes
 1. Use `process.py` to process the "smallerData.csv" file to get 80/20 train/test data(approximately label balanced).
+2. Use all the jars in the "JARS" folder as this project's dependencies. (It's all hadoop 2.7.3 framework.)
