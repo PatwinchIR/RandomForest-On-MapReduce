@@ -21,16 +21,16 @@ For example:
 # Structures
 1. Read train data from a CSV file.                                                                          
 2. Build n InputSplits for n trees, n is a command line argument.                                            
-   1. Use customized InputFormat.getSplits() to create n InputSplits. So the framework would call n mappers.
-   2. Use customized RecordReader.nextKeyValue() to create 2/3 subset of the training data with replacement.
-   3. When Mapper.run() is calling nextKeyValue(), this method directly return 2/3 of the data.                
-3. Each InputSplit would assign to a mappper.                                                                
+   1. Use customized `InputFormat.getSplits()` to create n `InputSplit`s. So the framework would call n mappers.
+   2. Use customized `RecordReader.nextKeyValue()` to create 2/3 subset of the training data with replacement.
+   3. When `Mapper.run()` is calling `nextKeyValue()`, this method directly return 2/3 of the data.                
+3. Each `InputSplit` would assign to a mappper.                                                                
 4. After receiving data, each mapper start to build tree and produce prediction for test dataset.            
-   (Each mapper is only going to receive one key/value pair from RecordReader.)                              
-5. Pass the test data and label as key and value to reducer.                                                 
-6. Reducer counts the majority label according to key.                                                       
+   (Each mapper is only going to receive one key/value pair from `RecordReader`.)                              
+5. Pass the test data and label as key and value to `Reducer`.                                                 
+6. `Reducer` counts the majority label according to key.                                                       
 7. Write results to output file.                                                                             
 
 # Notes
-1. Use `process.py` to process the "smallerData.csv" file to get 80/20 train/test data(approximately label balanced).
-2. Use all the jars in the "JARS" folder as this project's dependencies. (It's all hadoop 2.7.3 framework.)
+1. Use `process.py` to process the `smallerData.csv` file to get 80/20 train/test data(approximately label balanced).
+2. Use all the jars in the `JARS` folder as this project's dependencies. (It's all hadoop 2.7.3 framework.)
