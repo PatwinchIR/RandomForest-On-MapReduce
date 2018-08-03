@@ -3,6 +3,8 @@ A Random Forest MapReduce implementation.
 
 Used DecisionTree in another repository of mine.
 
+__[NOTE]__: Random Forest wasn't supposed to fit into MapReduce framework and design logic, this is just a for-fun project and is not optimized. It works but the actually performance for this library might be really really bad.
+
 # Instructions
 #### command line parameters
 
